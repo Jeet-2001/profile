@@ -17,8 +17,6 @@
             position: relative;
         }
 
-        .mono { font-family: 'Fira Code', monospace; }
-
         /* --- REDUCED NEON EFFECTS --- */
         .neon-text-sky { text-shadow: 0 0 4px rgba(56, 189, 248, 0.4); }
         .neon-text-indigo { text-shadow: 0 0 4px rgba(129, 140, 248, 0.4); }
@@ -58,7 +56,11 @@
             background: transparent;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-color: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        footer.glass-nav-footer {
+            border-bottom: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Typing Cursor */
@@ -140,12 +142,12 @@
 </head>
 <body class="relative antialiased selection:bg-sky-500 selection:text-white">
 
-    <canvas id="lattice-canvas" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none"></canvas>
+    <canvas id="waveform-canvas" class="fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none opacity-60"></canvas>
     
     <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-sky-600/10 blur-[120px] pointer-events-none z-[-1]"></div>
     <div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none z-[-1]"></div>
 
-    <nav class="fixed w-full z-50 glass-nav-footer border-b">
+    <nav class="fixed w-full z-50 glass-nav-footer">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold mono text-sky-400 tracking-tighter neon-text-sky">VLSI DESIGNER</div>
             <div class="hidden md:flex space-x-6 text-sm font-semibold tracking-wide">
@@ -166,7 +168,7 @@
                 <div class="relative group animate-float">
                     <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full blur-md opacity-60 group-hover:opacity-80 transition duration-500"></div>
                     <div class="relative w-48 h-48 rounded-full overflow-hidden border-4 bg-slate-800 flex items-center justify-center neon-profile z-10">
-                        <img src="SB.JPG" alt="Sarbojeet Bose" class="w-full h-full object-cover z-10" onerror="this.style.display='none'; document.getElementById('image-fallback').style.display='flex';">
+                        <img src="SB.jpg" alt="Sarbojeet Bose" class="w-full h-full object-cover z-10" onerror="this.style.display='none'; document.getElementById('image-fallback').style.display='flex';">
                         <div id="image-fallback" class="absolute inset-0 hidden items-center justify-center text-slate-600 bg-slate-800">
                             <i class="fas fa-user-tie fa-4x"></i>
                         </div>
@@ -558,98 +560,173 @@
         }
         window.scrollTo(0, 0);
 
-        // --- DYNAMIC SILICON CRYSTAL / LATTICE CANVAS LOGIC ---
-        const canvas = document.getElementById('lattice-canvas');
+        // --- DYNAMIC DIGITAL WAVEFORM (LOGIC ANALYZER) LOGIC ---
+        const canvas = document.getElementById('waveform-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
-        let hexes = [];
-        const hexRadius = 35;
-        const hexHeight = hexRadius * Math.sqrt(3);
-        const hexWidth = hexRadius * 1.5;
-
-        // Mouse interaction
-        let mouse = { x: -1000, y: -1000 };
-        window.addEventListener('mousemove', e => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
 
         function resize() {
             width = window.innerWidth;
             height = window.innerHeight;
             canvas.width = width;
             canvas.height = height;
-            initGrid();
+            initWaveforms();
         }
         window.addEventListener('resize', resize);
 
-        function initGrid() {
-            hexes = [];
-            for (let x = 0; x < width + hexRadius * 2; x += hexWidth) {
-                for (let y = 0; y < height + hexHeight * 2; y += hexHeight) {
-                    let cx = x;
-                    let cy = y;
-                    let col = Math.round(x / hexWidth);
-                    if (col % 2 !== 0) {
-                        cy += hexHeight / 2;
+        class Waveform {
+            constructor(y, color, isClock, speed, amplitude, frequency) {
+                this.y = y;
+                this.color = color;
+                this.isClock = isClock;
+                this.speed = speed;
+                this.amplitude = amplitude; // height of the HIGH logic state
+                this.frequency = frequency; // width of a single bit
+                this.offset = 0;
+                this.bits = [];
+                
+                // Initialize bits
+                for (let i = 0; i < Math.ceil(window.innerWidth / frequency) + 2; i++) {
+                    if (this.isClock) {
+                        this.bits.push(i % 2 === 0 ? 1 : 0); // Alternating clock
+                    } else {
+                        this.bits.push(Math.random() > 0.5 ? 1 : 0); // Random data
                     }
-                    hexes.push({ x: cx, y: cy });
                 }
+            }
+
+            update() {
+                this.offset -= this.speed;
+                // If we scrolled past one full bit, shift the array and generate a new bit
+                if (this.offset <= -this.frequency) {
+                    this.offset += this.frequency;
+                    this.bits.shift();
+                    if (this.isClock) {
+                        // Clock alternates strictly based on the last bit
+                        let lastBit = this.bits[this.bits.length - 1];
+                        this.bits.push(lastBit === 1 ? 0 : 1);
+                    } else {
+                        this.bits.push(Math.random() > 0.5 ? 1 : 0);
+                    }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 1.5;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = this.color;
+                
+                let currentX = this.offset;
+                let currentBit = this.bits[0];
+                let startY = this.y - (currentBit * this.amplitude);
+                
+                ctx.moveTo(currentX, startY);
+
+                for (let i = 1; i < this.bits.length; i++) {
+                    let nextX = currentX + this.frequency;
+                    let bit = this.bits[i];
+                    let nextY = this.y - (bit * this.amplitude);
+
+                    // Draw horizontal line for the current state
+                    ctx.lineTo(nextX, startY);
+
+                    // Draw vertical transition line if the state changes
+                    if (bit !== currentBit) {
+                        ctx.lineTo(nextX, nextY);
+                        // Add a small node at the transition point for hardware feel
+                        ctx.fillStyle = this.color;
+                        ctx.fillRect(nextX - 1.5, nextY - 1.5, 3, 3);
+                    }
+
+                    currentX = nextX;
+                    currentBit = bit;
+                    startY = nextY;
+
+                    if (currentX > width + this.frequency) break;
+                }
+                ctx.stroke();
+                
+                // Draw a faint horizontal baseline (LOW state logic reference)
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.lineWidth = 1;
+                ctx.shadowBlur = 0;
+                ctx.moveTo(0, this.y);
+                ctx.lineTo(width, this.y);
+                ctx.stroke();
             }
         }
 
-        let time = 0;
-        function animateLattice() {
-            time += 0.015;
+        let waveforms = [];
+        let sweepLineX = 0;
+
+        function initWaveforms() {
+            waveforms = [];
+            let totalHeight = height;
+            let spacing = 80; // Vertical spacing between signals
+            let numSignals = Math.floor(totalHeight / spacing) - 1;
+            if (numSignals < 3) numSignals = 3;
+            if (numSignals > 15) numSignals = 15;
+
+            const colors = ['rgba(56, 189, 248, 0.4)', 'rgba(129, 140, 248, 0.4)', 'rgba(52, 211, 153, 0.3)'];
+            let startY = spacing;
+
+            for (let i = 0; i < numSignals; i++) {
+                let isClock = (i === 0); // Make the top signal a perfect clock
+                let speed = isClock ? 1.5 : (Math.random() * 0.5 + 1); // Clock is fast, data varies slightly
+                if(isClock) speed = 2; 
+                let amplitude = 40; // Pixel height of signal
+                let frequency = isClock ? 60 : (Math.floor(Math.random() * 40) + 80); // Width of bit
+                let color = colors[i % colors.length];
+                
+                waveforms.push(new Waveform(startY, color, isClock, speed, amplitude, frequency));
+                startY += spacing;
+            }
+        }
+
+        function animateWaveforms() {
             ctx.clearRect(0, 0, width, height);
 
-            hexes.forEach(hex => {
-                let dist = Math.hypot(mouse.x - hex.x, mouse.y - hex.y);
-                let mouseInteraction = Math.max(0, 1 - dist / 250);
+            // Draw a subtle background schematic grid
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            ctx.lineWidth = 1;
+            for(let x=0; x<width; x+=100) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+            for(let y=0; y<height; y+=100) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+            ctx.stroke();
 
-                // Breathing wave based on coordinates and time
-                let wave = (Math.sin(hex.x * 0.005 + time) + Math.cos(hex.y * 0.005 + time)) * 0.2;
-                let baseOpacity = 0.05 + Math.max(0, wave);
-
-                let totalOpacity = Math.min(0.6, baseOpacity + (mouseInteraction * 0.5));
-
-                if (totalOpacity > 0.01) {
-                    drawHexagon(hex.x, hex.y, totalOpacity);
-                }
+            // Update and draw waveforms
+            waveforms.forEach(w => {
+                w.update();
+                w.draw();
             });
 
-            requestAnimationFrame(animateLattice);
-        }
+            // Draw simulation sweep line (vertical scanner)
+            sweepLineX += 3;
+            if (sweepLineX > width) sweepLineX = -100;
 
-        function drawHexagon(x, y, opacity) {
             ctx.beginPath();
-            for (let i = 0; i < 6; i++) {
-                let angle = (Math.PI / 3) * i;
-                let hx = x + hexRadius * Math.cos(angle);
-                let hy = y + hexRadius * Math.sin(angle);
-                if (i === 0) ctx.moveTo(hx, hy);
-                else ctx.lineTo(hx, hy);
-            }
-            ctx.closePath();
-
-            // Alternate colors to match theme
-            let isIndigo = Math.round((x + y) / 50) % 3 === 0;
+            let gradient = ctx.createLinearGradient(sweepLineX - 20, 0, sweepLineX, 0);
+            gradient.addColorStop(0, 'rgba(56, 189, 248, 0)');
+            gradient.addColorStop(0.9, 'rgba(56, 189, 248, 0.1)');
+            gradient.addColorStop(1, 'rgba(56, 189, 248, 0.8)');
             
-            if (isIndigo) {
-                ctx.strokeStyle = `rgba(129, 140, 248, ${opacity})`;
-                ctx.fillStyle = `rgba(129, 140, 248, ${opacity * 0.1})`;
-            } else {
-                ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
-                ctx.fillStyle = `rgba(56, 189, 248, ${opacity * 0.1})`;
-            }
+            ctx.fillStyle = gradient;
+            ctx.fillRect(sweepLineX - 20, 0, 20, height);
             
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.8)';
             ctx.lineWidth = 1;
+            ctx.moveTo(sweepLineX, 0);
+            ctx.lineTo(sweepLineX, height);
             ctx.stroke();
-            ctx.fill();
+
+            requestAnimationFrame(animateWaveforms);
         }
 
         resize();
-        animateLattice();
+        animateWaveforms();
 
         // --- TYPING EFFECT ---
         const textArray = [
