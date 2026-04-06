@@ -11,36 +11,122 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #080c16; 
+            background-color: #030712; 
             color: #f8fafc;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* --- REDUCED NEON EFFECTS --- */
-        .neon-text-sky { text-shadow: 0 0 4px rgba(56, 189, 248, 0.4); }
-        .neon-text-indigo { text-shadow: 0 0 4px rgba(129, 140, 248, 0.4); }
-        .neon-text-emerald { text-shadow: 0 0 4px rgba(52, 211, 153, 0.4); }
+        .mono { font-family: 'Fira Code', monospace; }
+
+        /* --- ENHANCED VLSI SILICON CIRCUIT BACKGROUND --- */
+        .circuit-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            background-color: #030712;
+            overflow: hidden;
+        }
+
+        /* Stronger routing grid */
+        .circuit-grid {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(rgba(56, 189, 248, 0.3) 2px, transparent 2px),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px, 90px 90px, 90px 90px;
+            background-position: 0 0, -1px -1px, -1px -1px;
+        }
+
+        /* Thicker, Glowing Data Signals */
+        .data-line-h {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #38bdf8, #bae6fd, #38bdf8, transparent);
+            height: 3px; 
+            width: 400px;
+            box-shadow: 0 0 15px #38bdf8, 0 0 30px rgba(56, 189, 248, 0.5);
+            opacity: 0;
+            border-radius: 5px;
+            animation: shoot-line-h linear infinite;
+        }
+
+        .data-line-v {
+            position: absolute;
+            background: linear-gradient(180deg, transparent, #818cf8, #c7d2fe, #818cf8, transparent);
+            width: 3px; 
+            height: 400px;
+            box-shadow: 0 0 15px #818cf8, 0 0 30px rgba(129, 140, 248, 0.5);
+            opacity: 0;
+            border-radius: 5px;
+            animation: shoot-line-v linear infinite;
+        }
+
+        /* Pulsing Vias (Nodes) */
+        .via-node {
+            position: absolute;
+            width: 8px; height: 8px;
+            background-color: #34d399; 
+            border-radius: 50%;
+            box-shadow: 0 0 12px #34d399, 0 0 25px rgba(52, 211, 153, 0.8);
+            animation: pulse-via 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse-via {
+            0% { transform: scale(0.5); opacity: 0.2; box-shadow: 0 0 5px #34d399; }
+            100% { transform: scale(1.8); opacity: 1; box-shadow: 0 0 20px #34d399, 0 0 40px rgba(52, 211, 153, 0.8); }
+        }
+
+        @keyframes shoot-line-h {
+            0% { transform: translateX(-400px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100vw); opacity: 0; }
+        }
+
+        @keyframes shoot-line-v {
+            0% { transform: translateY(-400px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Lighter Vignette overlay */
+        .bg-vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(3, 7, 18, 0.95) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- ENHANCED NEON EFFECTS --- */
+        /* Double layered text shadow for that true neon tube glow */
+        .neon-text-sky { text-shadow: 0 0 8px rgba(56, 189, 248, 0.9), 0 0 18px rgba(56, 189, 248, 0.5); }
+        .neon-text-indigo { text-shadow: 0 0 8px rgba(129, 140, 248, 0.9), 0 0 18px rgba(129, 140, 248, 0.5); }
+        .neon-text-emerald { text-shadow: 0 0 8px rgba(52, 211, 153, 0.9), 0 0 18px rgba(52, 211, 153, 0.5); }
 
         @keyframes neon-pulse {
-            0%, 100% { box-shadow: 0 0 8px rgba(56, 189, 248, 0.3), 0 0 12px rgba(129, 140, 248, 0.2); }
-            50% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.5), 0 0 20px rgba(129, 140, 248, 0.3); }
+            0%, 100% { box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.4), 0 0 12px rgba(56, 189, 248, 0.5), 0 0 25px rgba(129, 140, 248, 0.3); }
+            50% { box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.7), 0 0 25px rgba(56, 189, 248, 0.9), 0 0 50px rgba(129, 140, 248, 0.7), 0 0 70px rgba(56, 189, 248, 0.4); }
         }
+        
         .neon-profile {
-            animation: neon-pulse 4s infinite alternate;
+            animation: neon-pulse 2.5s infinite alternate ease-in-out;
             border-color: #38bdf8;
         }
 
         /* Glassmorphism */
         .glass-panel {
-            background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(56, 189, 248, 0.15); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .glass-panel:hover {
-            border-color: rgba(56, 189, 248, 0.6); background: rgba(30, 41, 59, 0.8);
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.2), inset 0 0 5px rgba(56, 189, 248, 0.05); 
+            border-color: rgba(56, 189, 248, 0.5); background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), inset 0 0 8px rgba(56, 189, 248, 0.1); 
         }
 
         .card-hover:hover { transform: translateY(-5px); }
@@ -48,14 +134,14 @@
         .text-gradient {
             background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.2));
+            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4));
         }
 
         /* Transparent Top and Bottom Bars */
         .glass-nav-footer {
-            background: transparent;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(5, 8, 16, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         footer.glass-nav-footer {
@@ -67,7 +153,7 @@
         .typing-container { min-height: 30px; }
         .cursor {
             display: inline-block; width: 2px; background-color: #38bdf8;
-            box-shadow: 0 0 4px #38bdf8; animation: blink 1s infinite; margin-left: 4px;
+            box-shadow: 0 0 6px #38bdf8, 0 0 12px #38bdf8; animation: blink 1s infinite; margin-left: 4px;
         }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
@@ -83,13 +169,13 @@
         /* Filters */
         .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
         .filter-btn {
-            background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(5px); color: #cbd5e1;
-            border: 1px solid rgba(56, 189, 248, 0.2); padding: 10px 25px; border-radius: 25px;
+            background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(5px); color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px 25px; border-radius: 25px;
             cursor: pointer; font-weight: 600; transition: all 0.3s ease;
         }
         .filter-btn.active, .filter-btn:hover {
             background: #38bdf8; color: #0b1120; border-color: #38bdf8;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); transform: translateY(-2px); 
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5), 0 0 5px rgba(56, 189, 248, 0.8); transform: translateY(-2px); 
         }
         .project-card { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); transform-origin: top center; }
 
@@ -99,7 +185,7 @@
         .full-text > div { overflow: hidden; }
         
         .more-content-inner {
-            padding-top: 15px; border-top: 1px dashed rgba(56, 189, 248, 0.3);
+            padding-top: 15px; border-top: 1px dashed rgba(255, 255, 255, 0.1);
             margin-top: 15px; opacity: 0; transform: translateY(-5px); transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         }
         .full-text.expanded .more-content-inner { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
@@ -107,8 +193,8 @@
         /* Skill Pills */
         .skills-wrapper { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
         .skill-pill {
-            background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(5px); color: #f8fafc;
-            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(56, 189, 248, 0.2);
+            background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(5px); color: #f8fafc;
+            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1);
             font-weight: bold; cursor: default; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative; overflow: hidden; display: inline-block;
         }
@@ -116,7 +202,7 @@
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, #38bdf8 0%, #818cf8 100%); transition: all 0.4s ease; z-index: 1;
         }
-        .skill-pill:hover { transform: translateY(-3px); box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); border-color: #38bdf8; } 
+        .skill-pill:hover { transform: translateY(-3px); box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); border-color: #38bdf8; } 
         .skill-pill:hover::before { left: 0; }
         .skill-pill span { position: relative; z-index: 2; transition: color 0.3s; }
         .skill-pill:hover span { color: #0b1120; }
@@ -127,25 +213,38 @@
             padding: 10px; border-radius: 8px; transition: all 0.3s ease; border: 1px solid transparent;
         }
         .accolade-link:hover {
-            background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.1); 
+            background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);
         }
         
         .nav-link { position: relative; }
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 2px;
             bottom: -4px; left: 0; background-color: #38bdf8;
-            transition: width 0.3s ease; box-shadow: 0 0 4px #38bdf8;
+            transition: width 0.3s ease; box-shadow: 0 0 6px #38bdf8;
         }
         .nav-link:hover::after { width: 100%; }
     </style>
 </head>
 <body class="relative antialiased selection:bg-sky-500 selection:text-white">
 
-    <canvas id="waveform-canvas" class="fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none opacity-60"></canvas>
-    
-    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-sky-600/10 blur-[120px] pointer-events-none z-[-1]"></div>
-    <div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none z-[-1]"></div>
+    <div class="circuit-bg">
+        <div class="circuit-grid"></div>
+        
+        <div class="via-node" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+        <div class="via-node" style="top: 45%; left: 80%; animation-delay: 1.2s; background-color: #38bdf8; box-shadow: 0 0 12px #38bdf8, 0 0 25px rgba(56, 189, 248, 0.8);"></div>
+        <div class="via-node" style="top: 75%; left: 30%; animation-delay: 0.5s;"></div>
+        <div class="via-node" style="top: 60%; left: 60%; animation-delay: 2s; background-color: #818cf8; box-shadow: 0 0 12px #818cf8, 0 0 25px rgba(129, 140, 248, 0.8);"></div>
+        <div class="via-node" style="top: 85%; left: 85%; animation-delay: 1.8s;"></div>
+
+        <div class="data-line-h" style="top: 15%; animation-duration: 4s; animation-delay: 0s;"></div>
+        <div class="data-line-h" style="top: 45%; animation-duration: 6s; animation-delay: 2s; background: linear-gradient(90deg, transparent, #34d399, #a7f3d0, #34d399, transparent); box-shadow: 0 0 15px #34d399, 0 0 30px rgba(52, 211, 153, 0.5);"></div>
+        <div class="data-line-h" style="top: 75%; animation-duration: 3.5s; animation-delay: 1.5s;"></div>
+        
+        <div class="data-line-v" style="left: 20%; animation-duration: 5s; animation-delay: 1s;"></div>
+        <div class="data-line-v" style="left: 60%; animation-duration: 4.5s; animation-delay: 3s; background: linear-gradient(180deg, transparent, #34d399, #a7f3d0, #34d399, transparent); box-shadow: 0 0 15px #34d399, 0 0 30px rgba(52, 211, 153, 0.5);"></div>
+        <div class="data-line-v" style="left: 85%; animation-duration: 7s; animation-delay: 0.5s;"></div>
+    </div>
+    <div class="bg-vignette"></div>
 
     <nav class="fixed w-full z-50 glass-nav-footer">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -157,19 +256,19 @@
                 <a href="#skills" class="nav-link hover:text-sky-400 transition duration-300">Skills</a>
                 <a href="#education" class="nav-link hover:text-sky-400 transition duration-300">Education</a>
             </div>
-            <a href="#contact" class="px-5 py-2 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-lg font-medium transition duration-300 shadow-[0_0_8px_rgba(56,189,248,0.3)]">
+            <a href="#contact" class="px-5 py-2 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-lg font-medium transition duration-300 shadow-[0_0_12px_rgba(56,189,248,0.5)]">
                 Contact
             </a>
         </div>
     </nav>
 
-    <section id="home" class="pt-40 pb-12 px-6 min-h-[80vh] flex flex-col justify-center items-center text-center">
+    <section id="home" class="pt-40 pb-12 px-6 min-h-[80vh] flex flex-col justify-center items-center text-center relative z-10">
         <div class="max-w-5xl mx-auto flex flex-col items-center gap-8">
             <div class="reveal">
                 <div class="relative group animate-float">
                     <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full blur-md opacity-60 group-hover:opacity-80 transition duration-500"></div>
                     <div class="relative w-48 h-48 rounded-full overflow-hidden border-4 bg-slate-800 flex items-center justify-center neon-profile z-10">
-                        <img src="your-profile-image.jpg" alt="Sarbojeet Bose" class="w-full h-full object-cover z-10" onerror="this.style.display='none'; document.getElementById('image-fallback').style.display='flex';">
+                        <img src="SB.jpg" alt="Sarbojeet Bose" class="w-full h-full object-cover z-10" onerror="this.style.display='none'; document.getElementById('image-fallback').style.display='flex';">
                         <div id="image-fallback" class="absolute inset-0 hidden items-center justify-center text-slate-600 bg-slate-800">
                             <i class="fas fa-user-tie fa-4x"></i>
                         </div>
@@ -200,7 +299,8 @@
         </div>
     </section>
 
-    <section id="about" class="py-12 px-6 relative z-10 pt-24 -mt-24"> <div class="max-w-7xl mx-auto">
+    <section id="about" class="py-12 px-6 relative z-10 pt-24 -mt-24"> 
+        <div class="max-w-7xl mx-auto">
             <div class="text-center mb-8 reveal">
                 <h2 class="text-3xl font-bold"><span class="text-gradient">Professional Summary</span></h2>
             </div>
@@ -229,7 +329,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal" data-category="major">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-sky transition">Simulation of Tunnel Diodes</h3>
-                        <span class="text-xs font-mono text-sky-400 bg-sky-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(56,189,248,0.2)]">Major</span>
+                        <span class="text-xs font-mono text-sky-400 bg-sky-950/50 px-2 py-1 rounded border border-sky-500/20">Major</span>
                     </div>
                     <span class="text-xs text-sky-200/50 mb-2">Oct 2025 - Mar 2026</span>
                     <p class="text-slate-300 text-sm mb-2">Conducted quantum mechanical modeling under optical illumination using Silvaco TCAD.</p>
@@ -239,8 +339,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Investigated unique carrier transport mechanisms that yield a distinct double-valley characteristic in the device's operational curve.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-sky-500/30 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(56,189,248,0.1)]">Silvaco TCAD</span>
-                                    <span class="text-xs border border-sky-500/30 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(56,189,248,0.1)]">Quantum Modeling</span>
+                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">Silvaco TCAD</span>
+                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">Quantum Modeling</span>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +351,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-100" data-category="major">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-sky transition">High-Speed Vedic Multiplier</h3>
-                        <span class="text-xs font-mono text-sky-400 bg-sky-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(56,189,248,0.2)]">Major</span>
+                        <span class="text-xs font-mono text-sky-400 bg-sky-950/50 px-2 py-1 rounded border border-sky-500/20">Major</span>
                     </div>
                     <span class="text-xs text-sky-200/50 mb-2">Oct 2025 - Mar 2026</span>
                     <p class="text-slate-300 text-sm mb-2">Designed a scalable Vedic multiplier utilizing a parallel-prefix Kogge-Stone Adder.</p>
@@ -261,8 +361,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Drove the complete ASIC design flow from RTL synthesis to physical layout implementation, profiling PPA metrics and ensuring timing closure.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-sky-500/30 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(56,189,248,0.1)]">ASIC Flow</span>
-                                    <span class="text-xs border border-sky-500/30 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(56,189,248,0.1)]">PPA Metrics</span>
+                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">ASIC Flow</span>
+                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">PPA Metrics</span>
                                 </div>
                             </div>
                         </div>
@@ -273,7 +373,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-200" data-category="mini">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">FSM-based Voting Machine</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(129,140,248,0.2)]">Mini</span>
+                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Mini</span>
                     </div>
                     <span class="text-xs text-indigo-200/50 mb-2">Jul 2025 - Sept 2025</span>
                     <p class="text-slate-300 text-sm mb-2">Designed a 4-candidate voting machine using FSM logic and sent for tapeout.</p>
@@ -283,8 +383,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Verified functionality via TinyTapeout workflow and submitted the design for physical fabrication.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">FSM Logic</span>
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">TinyTapeout</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">FSM Logic</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">TinyTapeout</span>
                                 </div>
                             </div>
                         </div>
@@ -295,7 +395,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal" data-category="term">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-emerald transition">2-Stage Telescopic OTA</h3>
-                        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(52,211,153,0.2)]">Term</span>
+                        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/50 px-2 py-1 rounded border border-emerald-500/20">Term</span>
                     </div>
                     <span class="text-xs text-emerald-200/50 mb-2">Jan 2025 - May 2025</span>
                     <p class="text-slate-300 text-sm mb-2">Designed a high gain telescopic operational amplifier operating at 1.5V in 180nm CMOS.</p>
@@ -305,8 +405,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Optimized gain, speed, and stability using Cadence Virtuoso and Spectre simulations.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-emerald-500/30 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(52,211,153,0.1)]">Analog Design</span>
-                                    <span class="text-xs border border-emerald-500/30 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(52,211,153,0.1)]">Cadence Virtuoso</span>
+                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">Analog Design</span>
+                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">Cadence Virtuoso</span>
                                 </div>
                             </div>
                         </div>
@@ -317,7 +417,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-100" data-category="mini">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">Channel Materials for GAA Transistors</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(129,140,248,0.2)]">Minor</span>
+                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Minor</span>
                     </div>
                     <span class="text-xs text-indigo-200/50 mb-2">Jan 2025 - May 2025</span>
                     <p class="text-slate-300 text-sm mb-2">Analyzed Si, Ge, InGaAs, GaAs channel materials for GAA transistors using COMSOL.</p>
@@ -327,8 +427,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Evaluated ION, DIBL, and leakage characteristics to optimize electrical performance.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">GAA Transistors</span>
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">COMSOL</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">GAA Transistors</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">COMSOL</span>
                                 </div>
                             </div>
                         </div>
@@ -339,7 +439,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-200" data-category="term">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-emerald transition">TCAD Simulation of GaN Devices</h3>
-                        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(52,211,153,0.2)]">Term</span>
+                        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/50 px-2 py-1 rounded border border-emerald-500/20">Term</span>
                     </div>
                     <span class="text-xs text-emerald-200/50 mb-2">Jan 2025 - May 2025</span>
                     <p class="text-slate-300 text-sm mb-2">Analyzed efficiency and reliability of GaN GAA devices via Silvaco TCAD simulations.</p>
@@ -349,8 +449,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Focusing heavily on material and geometric variations to observe physical boundaries and performance constraints.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-emerald-500/30 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(52,211,153,0.1)]">GaN Devices</span>
-                                    <span class="text-xs border border-emerald-500/30 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(52,211,153,0.1)]">Silvaco TCAD</span>
+                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">GaN Devices</span>
+                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">Silvaco TCAD</span>
                                 </div>
                             </div>
                         </div>
@@ -361,7 +461,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal" data-category="mini">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">N-width Booth Multiplier</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(129,140,248,0.2)]">Mini</span>
+                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Mini</span>
                     </div>
                     <span class="text-xs text-indigo-200/50 mb-2">Jan 2025 - Feb 2025</span>
                     <p class="text-slate-300 text-sm mb-2">Implemented high-speed N-width Booth Multiplier utilizing Synopsys.</p>
@@ -371,8 +471,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Executed complete physical design flow ensuring power, area, and timing closure.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">Synopsys</span>
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">Physical Design</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Synopsys</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Physical Design</span>
                                 </div>
                             </div>
                         </div>
@@ -383,7 +483,7 @@
                 <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-100" data-category="mini">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">CRC Error Detector</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded shadow-[0_0_4px_rgba(129,140,248,0.2)]">Mini</span>
+                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Mini</span>
                     </div>
                     <span class="text-xs text-indigo-200/50 mb-2">Aug 2024 - Dec 2024</span>
                     <p class="text-slate-300 text-sm mb-2">Designed a CRC error detector for a given polynomial.</p>
@@ -393,8 +493,8 @@
                             <div class="more-content-inner">
                                 <p class="text-slate-300 text-sm mb-4">Implemented generation and verification logic for reliable data transmission using Cadence tools.</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">Cadence</span>
-                                    <span class="text-xs border border-indigo-500/30 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md shadow-[0_0_3px_rgba(129,140,248,0.1)]">Verification Logic</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Cadence</span>
+                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Verification Logic</span>
                                 </div>
                             </div>
                         </div>
@@ -405,7 +505,7 @@
         </div>
     </section>
 
-    <section id="skills" class="py-20 px-6 bg-slate-900/40 relative z-10 border-y border-slate-800">
+    <section id="skills" class="py-20 px-6 relative z-10 border-y border-white/5">
         <div class="max-w-5xl mx-auto text-center">
             <div class="mb-12 reveal">
                 <h2 class="text-3xl font-bold"><span class="text-gradient">Technical Arsenal</span></h2>
@@ -460,7 +560,7 @@
         </div>
     </section>
 
-    <section id="education" class="py-20 px-6 bg-slate-900/40 border-t border-slate-800 relative z-10">
+    <section id="education" class="py-20 px-6 border-t border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
             
             <div class="reveal">
@@ -502,7 +602,7 @@
                 <h3 class="text-3xl font-bold mb-10"><span class="text-gradient">Accolades</span></h3>
                 
                 <div class="glass-panel p-6 rounded-xl mb-6">
-                    <h4 class="font-bold text-lg mb-4 border-b border-slate-700 pb-2 text-white"><i class="fas fa-book-open text-sky-400 mr-2 neon-text-sky"></i> Publications</h4>
+                    <h4 class="font-bold text-lg mb-4 border-b border-white/10 pb-2 text-white"><i class="fas fa-book-open text-sky-400 mr-2 neon-text-sky"></i> Publications</h4>
                     <div class="space-y-2 text-slate-300 text-sm">
                         <a href="#" target="_blank" class="accolade-link group">
                             <i class="fas fa-external-link-alt text-sky-500 mt-1 flex-shrink-0 group-hover:text-sky-400"></i>
@@ -516,7 +616,7 @@
                 </div>
                 
                 <div class="glass-panel p-6 rounded-xl">
-                    <h4 class="font-bold text-lg mb-4 border-b border-slate-700 pb-2 text-white"><i class="fas fa-certificate text-indigo-400 mr-2 neon-text-indigo"></i> Certifications</h4>
+                    <h4 class="font-bold text-lg mb-4 border-b border-white/10 pb-2 text-white"><i class="fas fa-certificate text-indigo-400 mr-2 neon-text-indigo"></i> Certifications</h4>
                     <div class="space-y-2 text-slate-300 text-sm">
                         <a href="#" target="_blank" class="accolade-link group">
                             <i class="fas fa-external-link-alt text-indigo-400 mt-1 flex-shrink-0 group-hover:text-indigo-300"></i>
@@ -536,14 +636,14 @@
         </div>
     </section>
 
-    <footer id="contact" class="pt-20 pb-10 px-6 border-t glass-nav-footer relative z-10">
+    <footer id="contact" class="pt-20 pb-10 px-6 glass-nav-footer relative z-10">
         <div class="max-w-4xl mx-auto text-center reveal">
             <h2 class="text-3xl font-bold mb-8 neon-text-sky">Ready to build the future of silicon?</h2>
             <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
-                <a href="mailto:sarbojeetdgp@gmail.com" class="px-8 py-4 glass-panel rounded-xl hover:bg-sky-500 hover:text-white hover:shadow-[0_0_12px_rgba(56,189,248,0.3)] transition duration-300 flex items-center justify-center gap-3 font-semibold">
+                <a href="mailto:sarbojeetdgp@gmail.com" class="px-8 py-4 glass-panel rounded-xl hover:bg-sky-500 hover:text-white hover:shadow-[0_0_15px_rgba(56,189,248,0.6)] transition duration-300 flex items-center justify-center gap-3 font-semibold">
                     <i class="fas fa-paper-plane"></i> Email Me
                 </a>
-                <a href="https://linkedin.com/in/sarbojeetb22" target="_blank" class="px-8 py-4 glass-panel rounded-xl hover:bg-[#0A66C2] hover:text-white hover:shadow-[0_0_12px_rgba(10,102,194,0.3)] transition duration-300 flex items-center justify-center gap-3 font-semibold">
+                <a href="https://linkedin.com/in/sarbojeetb22" target="_blank" class="px-8 py-4 glass-panel rounded-xl hover:bg-[#0A66C2] hover:text-white hover:shadow-[0_0_15px_rgba(10,102,194,0.6)] transition duration-300 flex items-center justify-center gap-3 font-semibold">
                     <i class="fab fa-linkedin text-xl"></i> Connect
                 </a>
             </div>
@@ -559,174 +659,6 @@
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
-
-        // --- DYNAMIC DIGITAL WAVEFORM (LOGIC ANALYZER) LOGIC ---
-        const canvas = document.getElementById('waveform-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-            initWaveforms();
-        }
-        window.addEventListener('resize', resize);
-
-        class Waveform {
-            constructor(y, color, isClock, speed, amplitude, frequency) {
-                this.y = y;
-                this.color = color;
-                this.isClock = isClock;
-                this.speed = speed;
-                this.amplitude = amplitude; // height of the HIGH logic state
-                this.frequency = frequency; // width of a single bit
-                this.offset = 0;
-                this.bits = [];
-                
-                // Initialize bits
-                for (let i = 0; i < Math.ceil(window.innerWidth / frequency) + 2; i++) {
-                    if (this.isClock) {
-                        this.bits.push(i % 2 === 0 ? 1 : 0); // Alternating clock
-                    } else {
-                        this.bits.push(Math.random() > 0.5 ? 1 : 0); // Random data
-                    }
-                }
-            }
-
-            update() {
-                this.offset -= this.speed;
-                // If we scrolled past one full bit, shift the array and generate a new bit
-                if (this.offset <= -this.frequency) {
-                    this.offset += this.frequency;
-                    this.bits.shift();
-                    if (this.isClock) {
-                        // Clock alternates strictly based on the last bit
-                        let lastBit = this.bits[this.bits.length - 1];
-                        this.bits.push(lastBit === 1 ? 0 : 1);
-                    } else {
-                        this.bits.push(Math.random() > 0.5 ? 1 : 0);
-                    }
-                }
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.strokeStyle = this.color;
-                ctx.lineWidth = 1.5;
-                ctx.shadowBlur = 6;
-                ctx.shadowColor = this.color;
-                
-                let currentX = this.offset;
-                let currentBit = this.bits[0];
-                let startY = this.y - (currentBit * this.amplitude);
-                
-                ctx.moveTo(currentX, startY);
-
-                for (let i = 1; i < this.bits.length; i++) {
-                    let nextX = currentX + this.frequency;
-                    let bit = this.bits[i];
-                    let nextY = this.y - (bit * this.amplitude);
-
-                    // Draw horizontal line for the current state
-                    ctx.lineTo(nextX, startY);
-
-                    // Draw vertical transition line if the state changes
-                    if (bit !== currentBit) {
-                        ctx.lineTo(nextX, nextY);
-                        // Add a small node at the transition point for hardware feel
-                        ctx.fillStyle = this.color;
-                        ctx.fillRect(nextX - 1.5, nextY - 1.5, 3, 3);
-                    }
-
-                    currentX = nextX;
-                    currentBit = bit;
-                    startY = nextY;
-
-                    if (currentX > width + this.frequency) break;
-                }
-                ctx.stroke();
-                
-                // Draw a faint horizontal baseline (LOW state logic reference)
-                ctx.beginPath();
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-                ctx.lineWidth = 1;
-                ctx.shadowBlur = 0;
-                ctx.moveTo(0, this.y);
-                ctx.lineTo(width, this.y);
-                ctx.stroke();
-            }
-        }
-
-        let waveforms = [];
-        let sweepLineX = 0;
-
-        function initWaveforms() {
-            waveforms = [];
-            let totalHeight = height;
-            let spacing = 80; // Vertical spacing between signals
-            let numSignals = Math.floor(totalHeight / spacing) - 1;
-            if (numSignals < 3) numSignals = 3;
-            if (numSignals > 15) numSignals = 15;
-
-            const colors = ['rgba(56, 189, 248, 0.4)', 'rgba(129, 140, 248, 0.4)', 'rgba(52, 211, 153, 0.3)'];
-            let startY = spacing;
-
-            for (let i = 0; i < numSignals; i++) {
-                let isClock = (i === 0); // Make the top signal a perfect clock
-                let speed = isClock ? 1.5 : (Math.random() * 0.5 + 1); // Clock is fast, data varies slightly
-                if(isClock) speed = 2; 
-                let amplitude = 40; // Pixel height of signal
-                let frequency = isClock ? 60 : (Math.floor(Math.random() * 40) + 80); // Width of bit
-                let color = colors[i % colors.length];
-                
-                waveforms.push(new Waveform(startY, color, isClock, speed, amplitude, frequency));
-                startY += spacing;
-            }
-        }
-
-        function animateWaveforms() {
-            ctx.clearRect(0, 0, width, height);
-
-            // Draw a subtle background schematic grid
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            ctx.lineWidth = 1;
-            for(let x=0; x<width; x+=100) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
-            for(let y=0; y<height; y+=100) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
-            ctx.stroke();
-
-            // Update and draw waveforms
-            waveforms.forEach(w => {
-                w.update();
-                w.draw();
-            });
-
-            // Draw simulation sweep line (vertical scanner)
-            sweepLineX += 3;
-            if (sweepLineX > width) sweepLineX = -100;
-
-            ctx.beginPath();
-            let gradient = ctx.createLinearGradient(sweepLineX - 20, 0, sweepLineX, 0);
-            gradient.addColorStop(0, 'rgba(56, 189, 248, 0)');
-            gradient.addColorStop(0.9, 'rgba(56, 189, 248, 0.1)');
-            gradient.addColorStop(1, 'rgba(56, 189, 248, 0.8)');
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(sweepLineX - 20, 0, 20, height);
-            
-            ctx.strokeStyle = 'rgba(56, 189, 248, 0.8)';
-            ctx.lineWidth = 1;
-            ctx.moveTo(sweepLineX, 0);
-            ctx.lineTo(sweepLineX, height);
-            ctx.stroke();
-
-            requestAnimationFrame(animateWaveforms);
-        }
-
-        resize();
-        animateWaveforms();
 
         // --- TYPING EFFECT ---
         const textArray = [
