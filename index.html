@@ -11,7 +11,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #030712; 
+            background-color: #05080f; 
             color: #f8fafc;
             overflow-x: hidden;
             position: relative;
@@ -19,294 +19,153 @@
 
         .mono { font-family: 'Fira Code', monospace; }
 
-        /* --- ENHANCED VLSI SILICON CIRCUIT BACKGROUND --- */
-        .circuit-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -2;
-            background-color: #030712;
-            overflow: hidden;
-        }
-
-        /* Stronger routing grid */
-        .circuit-grid {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                radial-gradient(rgba(56, 189, 248, 0.3) 2px, transparent 2px),
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px, 90px 90px, 90px 90px;
-            background-position: 0 0, -1px -1px, -1px -1px;
-        }
-
-        /* Thicker, Glowing Data Signals */
-        .data-line-h {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, #38bdf8, #bae6fd, #38bdf8, transparent);
-            height: 3px; 
-            width: 400px;
-            box-shadow: 0 0 15px #38bdf8, 0 0 30px rgba(56, 189, 248, 0.5);
-            opacity: 0;
-            border-radius: 5px;
-            animation: shoot-line-h linear infinite;
-        }
-
-        .data-line-v {
-            position: absolute;
-            background: linear-gradient(180deg, transparent, #818cf8, #c7d2fe, #818cf8, transparent);
-            width: 3px; 
-            height: 400px;
-            box-shadow: 0 0 15px #818cf8, 0 0 30px rgba(129, 140, 248, 0.5);
-            opacity: 0;
-            border-radius: 5px;
-            animation: shoot-line-v linear infinite;
-        }
-
-        /* Pulsing Vias (Nodes) */
-        .via-node {
-            position: absolute;
-            width: 8px; height: 8px;
-            background-color: #34d399; 
-            border-radius: 50%;
-            box-shadow: 0 0 12px #34d399, 0 0 25px rgba(52, 211, 153, 0.8);
-            animation: pulse-via 2.5s infinite alternate ease-in-out;
-        }
-
-        @keyframes pulse-via {
-            0% { transform: scale(0.5); opacity: 0.2; box-shadow: 0 0 5px #34d399; }
-            100% { transform: scale(1.8); opacity: 1; box-shadow: 0 0 20px #34d399, 0 0 40px rgba(52, 211, 153, 0.8); }
-        }
-
-        @keyframes shoot-line-h {
-            0% { transform: translateX(-400px); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateX(100vw); opacity: 0; }
-        }
-
-        @keyframes shoot-line-v {
-            0% { transform: translateY(-400px); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-
-        /* Lighter Vignette overlay */
-        .bg-vignette {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(3, 7, 18, 0.95) 100%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* --- ENHANCED NEON EFFECTS --- */
-        /* Double layered text shadow for that true neon tube glow */
-        .neon-text-sky { text-shadow: 0 0 8px rgba(56, 189, 248, 0.9), 0 0 18px rgba(56, 189, 248, 0.5); }
-        .neon-text-indigo { text-shadow: 0 0 8px rgba(129, 140, 248, 0.9), 0 0 18px rgba(129, 140, 248, 0.5); }
-        .neon-text-emerald { text-shadow: 0 0 8px rgba(52, 211, 153, 0.9), 0 0 18px rgba(52, 211, 153, 0.5); }
-
-        @keyframes neon-pulse {
-            0%, 100% { box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.4), 0 0 12px rgba(56, 189, 248, 0.5), 0 0 25px rgba(129, 140, 248, 0.3); }
-            50% { box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.7), 0 0 25px rgba(56, 189, 248, 0.9), 0 0 50px rgba(129, 140, 248, 0.7), 0 0 70px rgba(56, 189, 248, 0.4); }
-        }
-        
+        /* --- SUBTLE NEON --- */
+        .neon-text-sky { text-shadow: 0 0 4px rgba(56, 189, 248, 0.4); }
         .neon-profile {
-            animation: neon-pulse 2.5s infinite alternate ease-in-out;
-            border-color: #38bdf8;
+            animation: neon-pulse 4s infinite alternate;
+            border: 3px solid #38bdf8;
+        }
+        @keyframes neon-pulse {
+            0%, 100% { box-shadow: 0 0 8px rgba(56, 189, 248, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.6); }
         }
 
-        /* Glassmorphism */
+        /* --- GLASSMORPHISM --- */
         .glass-panel {
-            background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-
         .glass-panel:hover {
-            border-color: rgba(56, 189, 248, 0.5); background: rgba(30, 41, 59, 0.8);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), inset 0 0 8px rgba(56, 189, 248, 0.1); 
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
         }
 
-        .card-hover:hover { transform: translateY(-5px); }
+        /* --- NAVIGATION & FOOTER TRANSPARENCY --- */
+        .nav-footer-glass {
+            background: rgba(5, 8, 15, 0.85); /* Slightly darker for better mobile menu readability */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* --- TYPING BANNER SIZE REDUCTION --- */
+        .typing-container { min-height: 24px; font-size: 0.95rem; }
+        .cursor {
+            display: inline-block; width: 2px; background-color: #38bdf8;
+            animation: blink 1s infinite; margin-left: 4px;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* --- REVEAL --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         .text-gradient {
             background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4));
         }
 
-        /* Transparent Top and Bottom Bars */
-        .glass-nav-footer {
-            background: rgba(5, 8, 16, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        footer.glass-nav-footer {
-            border-bottom: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Typing Cursor */
-        .typing-container { min-height: 30px; }
-        .cursor {
-            display: inline-block; width: 2px; background-color: #38bdf8;
-            box-shadow: 0 0 6px #38bdf8, 0 0 12px #38bdf8; animation: blink 1s infinite; margin-left: 4px;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* Reveal animations */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-
-        /* Filters */
-        .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        /* --- FILTERS --- */
         .filter-btn {
-            background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(5px); color: #cbd5e1;
-            border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px 25px; border-radius: 25px;
-            cursor: pointer; font-weight: 600; transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.6); color: #cbd5e1;
+            padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer; transition: all 0.3s ease;
         }
         .filter-btn.active, .filter-btn:hover {
-            background: #38bdf8; color: #0b1120; border-color: #38bdf8;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5), 0 0 5px rgba(56, 189, 248, 0.8); transform: translateY(-2px); 
+            background: #38bdf8; color: #05080f; box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
         }
-        .project-card { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); transform-origin: top center; }
 
-        /* Read More */
-        .full-text { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        /* --- READ MORE --- */
+        .full-text { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease; }
         .full-text.expanded { grid-template-rows: 1fr; }
         .full-text > div { overflow: hidden; }
-        
-        .more-content-inner {
-            padding-top: 15px; border-top: 1px dashed rgba(255, 255, 255, 0.1);
-            margin-top: 15px; opacity: 0; transform: translateY(-5px); transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        }
-        .full-text.expanded .more-content-inner { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
 
-        /* Skill Pills */
-        .skills-wrapper { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
         .skill-pill {
-            background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(5px); color: #f8fafc;
-            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: bold; cursor: default; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative; overflow: hidden; display: inline-block;
+            background: rgba(30, 41, 59, 0.6); padding: 10px 20px; border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden;
         }
         .skill-pill::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 100%); transition: all 0.4s ease; z-index: 1;
+            background: #38bdf8; transition: 0.4s; z-index: 1;
         }
-        .skill-pill:hover { transform: translateY(-3px); box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); border-color: #38bdf8; } 
         .skill-pill:hover::before { left: 0; }
-        .skill-pill span { position: relative; z-index: 2; transition: color 0.3s; }
-        .skill-pill:hover span { color: #0b1120; }
-        
-        /* Links */
-        .accolade-link {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 10px; border-radius: 8px; transition: all 0.3s ease; border: 1px solid transparent;
-        }
-        .accolade-link:hover {
-            background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);
-        }
-        
-        .nav-link { position: relative; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -4px; left: 0; background-color: #38bdf8;
-            transition: width 0.3s ease; box-shadow: 0 0 6px #38bdf8;
-        }
-        .nav-link:hover::after { width: 100%; }
+        .skill-pill span { position: relative; z-index: 2; transition: 0.3s; }
+        .skill-pill:hover span { color: #05080f; }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .animate-float { animation: float 5s ease-in-out infinite; }
     </style>
 </head>
-<body class="relative antialiased selection:bg-sky-500 selection:text-white">
+<body>
 
-    <div class="circuit-bg">
-        <div class="circuit-grid"></div>
-        
-        <div class="via-node" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
-        <div class="via-node" style="top: 45%; left: 80%; animation-delay: 1.2s; background-color: #38bdf8; box-shadow: 0 0 12px #38bdf8, 0 0 25px rgba(56, 189, 248, 0.8);"></div>
-        <div class="via-node" style="top: 75%; left: 30%; animation-delay: 0.5s;"></div>
-        <div class="via-node" style="top: 60%; left: 60%; animation-delay: 2s; background-color: #818cf8; box-shadow: 0 0 12px #818cf8, 0 0 25px rgba(129, 140, 248, 0.8);"></div>
-        <div class="via-node" style="top: 85%; left: 85%; animation-delay: 1.8s;"></div>
+    <canvas id="circuit-canvas" class="fixed top-0 left-0 w-full h-full z-[-1] opacity-50"></canvas>
 
-        <div class="data-line-h" style="top: 15%; animation-duration: 4s; animation-delay: 0s;"></div>
-        <div class="data-line-h" style="top: 45%; animation-duration: 6s; animation-delay: 2s; background: linear-gradient(90deg, transparent, #34d399, #a7f3d0, #34d399, transparent); box-shadow: 0 0 15px #34d399, 0 0 30px rgba(52, 211, 153, 0.5);"></div>
-        <div class="data-line-h" style="top: 75%; animation-duration: 3.5s; animation-delay: 1.5s;"></div>
-        
-        <div class="data-line-v" style="left: 20%; animation-duration: 5s; animation-delay: 1s;"></div>
-        <div class="data-line-v" style="left: 60%; animation-duration: 4.5s; animation-delay: 3s; background: linear-gradient(180deg, transparent, #34d399, #a7f3d0, #34d399, transparent); box-shadow: 0 0 15px #34d399, 0 0 30px rgba(52, 211, 153, 0.5);"></div>
-        <div class="data-line-v" style="left: 85%; animation-duration: 7s; animation-delay: 0.5s;"></div>
-    </div>
-    <div class="bg-vignette"></div>
-
-    <nav class="fixed w-full z-50 glass-nav-footer">
+    <nav class="fixed w-full z-50 nav-footer-glass border-b border-white/5 relative">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold mono text-sky-400 tracking-tighter neon-text-sky">VLSI DESIGNER</div>
-            <div class="hidden md:flex space-x-6 text-sm font-semibold tracking-wide">
-                <a href="#home" class="nav-link hover:text-sky-400 transition duration-300">Home</a>
-                <a href="#about" class="nav-link hover:text-sky-400 transition duration-300">About</a>
-                <a href="#projects" class="nav-link hover:text-sky-400 transition duration-300">Projects</a>
-                <a href="#skills" class="nav-link hover:text-sky-400 transition duration-300">Skills</a>
-                <a href="#education" class="nav-link hover:text-sky-400 transition duration-300">Education</a>
+            <div class="text-xl font-bold mono text-sky-400 neon-text-sky">VLSI DESIGNER</div>
+            
+            <div class="hidden md:flex space-x-8 text-xs font-semibold uppercase tracking-widest">
+                <a href="#home" class="hover:text-sky-400 transition">Home</a>
+                <a href="#about" class="hover:text-sky-400 transition">About</a>
+                <a href="#projects" class="hover:text-sky-400 transition">Projects</a>
+                <a href="#skills" class="hover:text-sky-400 transition">Skills</a>
+                <a href="#education" class="hover:text-sky-400 transition">Education</a>
             </div>
-            <a href="#contact" class="px-5 py-2 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-lg font-medium transition duration-300 shadow-[0_0_12px_rgba(56,189,248,0.5)]">
-                Contact
-            </a>
+            
+            <div class="flex items-center space-x-4">
+                <a href="mailto:sarbojeetdgp@gmail.com" class="hidden sm:inline-block px-5 py-2 bg-sky-500/10 border border-sky-500/50 text-sky-400 rounded-full text-xs font-bold hover:bg-sky-500 hover:text-white transition">CONTACT</a>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-sky-400 text-2xl focus:outline-none hover:text-sky-300 transition">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full nav-footer-glass border-b border-white/5 flex-col items-center py-6 space-y-6 shadow-2xl">
+            <a href="#home" class="mobile-link text-sm font-bold uppercase tracking-widest hover:text-sky-400 transition">Home</a>
+            <a href="#about" class="mobile-link text-sm font-bold uppercase tracking-widest hover:text-sky-400 transition">About</a>
+            <a href="#projects" class="mobile-link text-sm font-bold uppercase tracking-widest hover:text-sky-400 transition">Projects</a>
+            <a href="#skills" class="mobile-link text-sm font-bold uppercase tracking-widest hover:text-sky-400 transition">Skills</a>
+            <a href="#education" class="mobile-link text-sm font-bold uppercase tracking-widest hover:text-sky-400 transition">Education</a>
+            <a href="mailto:sarbojeetdgp@gmail.com" class="mobile-link text-sm font-bold uppercase tracking-widest text-sky-400 border border-sky-500/50 px-6 py-2 rounded-full hover:bg-sky-500 hover:text-white transition">Contact</a>
         </div>
     </nav>
 
-    <section id="home" class="pt-40 pb-12 px-6 min-h-[80vh] flex flex-col justify-center items-center text-center relative z-10">
-        <div class="max-w-5xl mx-auto flex flex-col items-center gap-8">
-            <div class="reveal">
-                <div class="relative group animate-float">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full blur-md opacity-60 group-hover:opacity-80 transition duration-500"></div>
-                    <div class="relative w-48 h-48 rounded-full overflow-hidden border-4 bg-slate-800 flex items-center justify-center neon-profile z-10">
-                        <img src="SB.jpg" alt="Sarbojeet Bose" class="w-full h-full object-cover z-10" onerror="this.style.display='none'; document.getElementById('image-fallback').style.display='flex';">
-                        <div id="image-fallback" class="absolute inset-0 hidden items-center justify-center text-slate-600 bg-slate-800">
-                            <i class="fas fa-user-tie fa-4x"></i>
-                        </div>
-                    </div>
+    <section id="home" class="pt-48 pb-20 px-6 min-h-screen flex flex-col items-center text-center">
+        <div class="reveal">
+            <div class="relative group animate-float mb-10">
+                <div class="absolute -inset-2 bg-sky-500/20 rounded-full blur-xl group-hover:bg-sky-500/40 transition"></div>
+                <div class="relative w-40 h-40 rounded-full overflow-hidden neon-profile bg-slate-800">
+                    <img src="your-profile-image.jpg" alt="Sarbojeet Bose" class="w-full h-full object-cover" onerror="this.style.display='none';">
+                    <div class="absolute inset-0 flex items-center justify-center text-slate-600"><i class="fas fa-user-tie fa-3x"></i></div>
                 </div>
             </div>
+        </div>
 
-            <div class="reveal delay-100">
-                <p class="mono text-sky-400 mb-3 font-medium tracking-wide neon-text-sky">Hello, I am</p>
-                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight neon-text-sky">Sarbojeet Bose</h1>
-                
-                <div class="typing-container text-lg md:text-xl text-sky-400 font-light mb-6 neon-text-sky">
-                    <span id="typed-text"></span><span class="cursor">|</span>
-                </div>
-                
-                <div class="flex flex-wrap justify-center gap-4 mb-6">
-                    <a href="mailto:sarbojeetdgp@gmail.com" class="flex items-center gap-2 px-6 py-3 glass-panel rounded-full hover:bg-sky-500/10 hover:text-sky-300 transition text-sm font-medium">
-                        <i class="fas fa-envelope text-sky-400"></i> sarbojeetdgp@gmail.com
-                    </a>
-                    <a href="https://linkedin.com/in/sarbojeetb22" target="_blank" class="flex items-center gap-2 px-6 py-3 glass-panel rounded-full hover:bg-sky-500/10 hover:text-sky-300 transition text-sm font-medium">
-                        <i class="fab fa-linkedin text-sky-400 text-lg"></i> LinkedIn
-                    </a>
-                    <a href="tel:+918389938638" class="flex items-center gap-2 px-6 py-3 glass-panel rounded-full hover:bg-sky-500/10 hover:text-sky-300 transition text-sm font-medium">
-                        <i class="fas fa-phone-alt text-sky-400"></i> +91 8389938638
-                    </a>
-                </div>
+        <div class="reveal delay-100">
+            <p class="mono text-sky-400 mb-2 tracking-widest text-sm uppercase">Welcome to my Portfolio</p>
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tighter neon-text-sky">Sarbojeet Bose</h1>
+            
+            <div class="typing-container text-sky-300/80 mono mb-8">
+                <span id="typed-text"></span><span class="cursor">|</span>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://linkedin.com/in/sarbojeetb22" target="_blank" class="p-3 glass-panel rounded-full hover:text-sky-400"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:sarbojeetdgp@gmail.com" class="p-3 glass-panel rounded-full hover:text-sky-400"><i class="fas fa-envelope"></i></a>
+                <a href="tel:+918389938638" class="p-3 glass-panel rounded-full hover:text-sky-400"><i class="fas fa-phone"></i></a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-12 px-6 relative z-10 pt-24 -mt-24"> 
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-8 reveal">
-                <h2 class="text-3xl font-bold"><span class="text-gradient">Professional Summary</span></h2>
+    <section id="about" class="py-20 px-6 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl font-bold uppercase tracking-tighter text-gradient">Professional Summary</h2>
             </div>
-            <div class="glass-panel p-8 md:p-12 rounded-2xl text-center max-w-4xl mx-auto reveal delay-100">
-                <p class="text-lg md:text-xl text-slate-300 leading-relaxed font-light">
-                    Entry-level <strong class="text-sky-400 font-semibold neon-text-sky">VLSI Design Engineer</strong> pursuing M.Tech specializing in VLSI Design with hands-on experience in RTL design, ASIC flow, physical design, and TCAD-based semiconductor simulations. Proficient in Cadence and Synopsys EDA tools, analog circuit design, and advanced transistor modeling including GAA and GaN devices.
+            <div class="glass-panel p-8 md:p-12 rounded-3xl text-center reveal delay-100">
+                <p class="text-lg text-slate-300 leading-relaxed font-light">
+                    Entry-level <strong class="text-sky-400 font-semibold">VLSI Design Engineer</strong> pursuing M.Tech specializing in VLSI Design with hands-on experience in RTL design, ASIC flow, physical design, and TCAD-based semiconductor simulations. Proficient in Cadence and Synopsys EDA tools, analog circuit design, and advanced transistor modeling including GAA and GaN devices.
                 </p>
             </div>
         </div>
@@ -315,453 +174,254 @@
     <section id="projects" class="py-20 px-6 relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-10 reveal">
-                <h2 class="text-3xl font-bold"><span class="text-gradient">Interactive Project Portfolio</span></h2>
+                <h2 class="text-3xl font-bold uppercase tracking-tighter text-gradient">Project Portfolio</h2>
             </div>
             
-            <div class="filter-container reveal delay-100">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="major">Major Projects</button>
-                <button class="filter-btn" data-filter="term">Term Projects</button>
-                <button class="filter-btn" data-filter="mini">Mini & Minor</button>
+            <div class="filter-container reveal mb-12 flex justify-center gap-3">
+                <button class="filter-btn active" data-filter="all">ALL</button>
+                <button class="filter-btn" data-filter="major">MAJOR</button>
+                <button class="filter-btn" data-filter="term">TERM</button>
+                <button class="filter-btn" data-filter="mini">MINI</button>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="project-grid">
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal" data-category="major">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-sky transition">Simulation of Tunnel Diodes</h3>
-                        <span class="text-xs font-mono text-sky-400 bg-sky-950/50 px-2 py-1 rounded border border-sky-500/20">Major</span>
+                <div class="glass-panel p-6 rounded-2xl project-card reveal" data-category="major">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-[10px] bg-sky-500/20 text-sky-400 px-2 py-1 rounded uppercase font-bold">Simulation</span>
+                        <span class="text-[10px] text-slate-500 mono">Oct'25 - Mar'26</span>
                     </div>
-                    <span class="text-xs text-sky-200/50 mb-2">Oct 2025 - Mar 2026</span>
-                    <p class="text-slate-300 text-sm mb-2">Conducted quantum mechanical modeling under optical illumination using Silvaco TCAD.</p>
-                    
+                    <h3 class="text-lg font-bold mb-3">Tunnel Diodes Simulation</h3>
+                    <p class="text-sm text-slate-400 mb-4">Quantum mechanical modeling under optical illumination using Silvaco TCAD.</p>
                     <div class="full-text">
                         <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Investigated unique carrier transport mechanisms that yield a distinct double-valley characteristic in the device's operational curve.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">Silvaco TCAD</span>
-                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">Quantum Modeling</span>
-                                </div>
-                            </div>
+                            <p class="text-xs text-slate-500 border-t border-white/5 pt-4">Investigated unique carrier transport mechanisms that yield a distinct double-valley characteristic in the device's operational curve.</p>
                         </div>
                     </div>
-                    <button class="read-more-btn text-sky-400 text-sm font-semibold text-left mt-4 hover:text-sky-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
+                    <button class="read-more-btn mt-4 text-xs font-bold text-sky-400 uppercase tracking-widest">Read More</button>
                 </div>
 
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-100" data-category="major">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-sky transition">High-Speed Vedic Multiplier</h3>
-                        <span class="text-xs font-mono text-sky-400 bg-sky-950/50 px-2 py-1 rounded border border-sky-500/20">Major</span>
+                <div class="glass-panel p-6 rounded-2xl project-card reveal" data-category="major">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-[10px] bg-sky-500/20 text-sky-400 px-2 py-1 rounded uppercase font-bold">ASIC Flow</span>
+                        <span class="text-[10px] text-slate-500 mono">Oct'25 - Mar'26</span>
                     </div>
-                    <span class="text-xs text-sky-200/50 mb-2">Oct 2025 - Mar 2026</span>
-                    <p class="text-slate-300 text-sm mb-2">Designed a scalable Vedic multiplier utilizing a parallel-prefix Kogge-Stone Adder.</p>
-                    
+                    <h3 class="text-lg font-bold mb-3">High-Speed Vedic Multiplier</h3>
+                    <p class="text-sm text-slate-400 mb-4">Scalable Vedic multiplier utilizing a parallel-prefix Kogge-Stone Adder.</p>
                     <div class="full-text">
                         <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Drove the complete ASIC design flow from RTL synthesis to physical layout implementation, profiling PPA metrics and ensuring timing closure.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">ASIC Flow</span>
-                                    <span class="text-xs border border-white/10 text-sky-300 bg-sky-500/10 px-2 py-1 rounded-md">PPA Metrics</span>
-                                </div>
-                            </div>
+                            <p class="text-xs text-slate-500 border-t border-white/5 pt-4">Drove ASIC flow from RTL synthesis to physical layout, profiling PPA metrics and timing closure across bit-widths.</p>
                         </div>
                     </div>
-                    <button class="read-more-btn text-sky-400 text-sm font-semibold text-left mt-4 hover:text-sky-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
+                    <button class="read-more-btn mt-4 text-xs font-bold text-sky-400 uppercase tracking-widest">Read More</button>
                 </div>
 
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-200" data-category="mini">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">FSM-based Voting Machine</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Mini</span>
+                <div class="glass-panel p-6 rounded-2xl project-card reveal" data-category="mini">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded uppercase font-bold">Tapeout</span>
+                        <span class="text-[10px] text-slate-500 mono">Jul'25 - Sep'25</span>
                     </div>
-                    <span class="text-xs text-indigo-200/50 mb-2">Jul 2025 - Sept 2025</span>
-                    <p class="text-slate-300 text-sm mb-2">Designed a 4-candidate voting machine using FSM logic and sent for tapeout.</p>
-                    
+                    <h3 class="text-lg font-bold mb-3">FSM Voting Machine</h3>
+                    <p class="text-sm text-slate-400 mb-4">Designed a 4-candidate voting machine using FSM logic for fabrication.</p>
                     <div class="full-text">
                         <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Verified functionality via TinyTapeout workflow and submitted the design for physical fabrication.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">FSM Logic</span>
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">TinyTapeout</span>
-                                </div>
-                            </div>
+                            <p class="text-xs text-slate-500 border-t border-white/5 pt-4">Verified logic via TinyTapeout workflow and submitted the design for physical fabrication.</p>
                         </div>
                     </div>
-                    <button class="read-more-btn text-indigo-400 text-sm font-semibold text-left mt-4 hover:text-indigo-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
-                </div>
-
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal" data-category="term">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-emerald transition">2-Stage Telescopic OTA</h3>
-                        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/50 px-2 py-1 rounded border border-emerald-500/20">Term</span>
-                    </div>
-                    <span class="text-xs text-emerald-200/50 mb-2">Jan 2025 - May 2025</span>
-                    <p class="text-slate-300 text-sm mb-2">Designed a high gain telescopic operational amplifier operating at 1.5V in 180nm CMOS.</p>
-                    
-                    <div class="full-text">
-                        <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Optimized gain, speed, and stability using Cadence Virtuoso and Spectre simulations.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">Analog Design</span>
-                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">Cadence Virtuoso</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="read-more-btn text-emerald-400 text-sm font-semibold text-left mt-4 hover:text-emerald-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
-                </div>
-
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-100" data-category="mini">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">Channel Materials for GAA Transistors</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Minor</span>
-                    </div>
-                    <span class="text-xs text-indigo-200/50 mb-2">Jan 2025 - May 2025</span>
-                    <p class="text-slate-300 text-sm mb-2">Analyzed Si, Ge, InGaAs, GaAs channel materials for GAA transistors using COMSOL.</p>
-                    
-                    <div class="full-text">
-                        <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Evaluated ION, DIBL, and leakage characteristics to optimize electrical performance.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">GAA Transistors</span>
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">COMSOL</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="read-more-btn text-indigo-400 text-sm font-semibold text-left mt-4 hover:text-indigo-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
-                </div>
-
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-200" data-category="term">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-emerald transition">TCAD Simulation of GaN Devices</h3>
-                        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/50 px-2 py-1 rounded border border-emerald-500/20">Term</span>
-                    </div>
-                    <span class="text-xs text-emerald-200/50 mb-2">Jan 2025 - May 2025</span>
-                    <p class="text-slate-300 text-sm mb-2">Analyzed efficiency and reliability of GaN GAA devices via Silvaco TCAD simulations.</p>
-                    
-                    <div class="full-text">
-                        <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Focusing heavily on material and geometric variations to observe physical boundaries and performance constraints.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">GaN Devices</span>
-                                    <span class="text-xs border border-white/10 text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded-md">Silvaco TCAD</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="read-more-btn text-emerald-400 text-sm font-semibold text-left mt-4 hover:text-emerald-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
-                </div>
-
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal" data-category="mini">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">N-width Booth Multiplier</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Mini</span>
-                    </div>
-                    <span class="text-xs text-indigo-200/50 mb-2">Jan 2025 - Feb 2025</span>
-                    <p class="text-slate-300 text-sm mb-2">Implemented high-speed N-width Booth Multiplier utilizing Synopsys.</p>
-                    
-                    <div class="full-text">
-                        <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Executed complete physical design flow ensuring power, area, and timing closure.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Synopsys</span>
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Physical Design</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="read-more-btn text-indigo-400 text-sm font-semibold text-left mt-4 hover:text-indigo-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
-                </div>
-
-                <div class="glass-panel card-hover p-6 rounded-xl flex flex-col project-card reveal delay-100" data-category="mini">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white group-hover:neon-text-indigo transition">CRC Error Detector</h3>
-                        <span class="text-xs font-mono text-indigo-400 bg-indigo-950/50 px-2 py-1 rounded border border-indigo-500/20">Mini</span>
-                    </div>
-                    <span class="text-xs text-indigo-200/50 mb-2">Aug 2024 - Dec 2024</span>
-                    <p class="text-slate-300 text-sm mb-2">Designed a CRC error detector for a given polynomial.</p>
-                    
-                    <div class="full-text">
-                        <div>
-                            <div class="more-content-inner">
-                                <p class="text-slate-300 text-sm mb-4">Implemented generation and verification logic for reliable data transmission using Cadence tools.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Cadence</span>
-                                    <span class="text-xs border border-white/10 text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded-md">Verification Logic</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="read-more-btn text-indigo-400 text-sm font-semibold text-left mt-4 hover:text-indigo-300 transition w-max">Read More <i class="fas fa-chevron-down text-xs ml-1"></i></button>
+                    <button class="read-more-btn mt-4 text-xs font-bold text-sky-400 uppercase tracking-widest">Read More</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="py-20 px-6 relative z-10 border-y border-white/5">
+    <section id="skills" class="py-20 px-6 relative z-10">
         <div class="max-w-5xl mx-auto text-center">
-            <div class="mb-12 reveal">
-                <h2 class="text-3xl font-bold"><span class="text-gradient">Technical Arsenal</span></h2>
-            </div>
-            <div class="skills-wrapper reveal delay-100">
+            <h2 class="text-3xl font-bold mb-12 text-gradient">Technical Arsenal</h2>
+            <div class="skills-wrapper flex flex-wrap justify-center gap-4 reveal">
                 <div class="skill-pill"><span>Verilog</span></div>
-                <div class="skill-pill"><span>C/C++</span></div>
                 <div class="skill-pill"><span>Python</span></div>
+                <div class="skill-pill"><span>C/C++</span></div>
                 <div class="skill-pill"><span>Cadence (Genus, Innovus)</span></div>
-                <div class="skill-pill"><span>Synopsys (DC, ICCII, PrimeTime)</span></div>
+                <div class="skill-pill"><span>Synopsys (DC, ICCII)</span></div>
                 <div class="skill-pill"><span>Xilinx Vivado</span></div>
-                <div class="skill-pill"><span>ModelSim</span></div>
                 <div class="skill-pill"><span>Silvaco TCAD</span></div>
                 <div class="skill-pill"><span>COMSOL Multiphysics</span></div>
-                <div class="skill-pill"><span>SEMulator3D</span></div>
                 <div class="skill-pill"><span>LTSpice</span></div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="py-20 px-6 relative z-10">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl font-bold"><span class="text-gradient">Experience & Training</span></h2>
-            </div>
-            
-            <div class="space-y-6 max-w-4xl mx-auto">
-                <div class="glass-panel p-6 rounded-xl reveal flex flex-col md:flex-row gap-4 justify-between md:items-center hover:shadow-[0_0_10px_rgba(56,189,248,0.1)] transition duration-300">
-                    <div>
-                        <h3 class="text-xl font-bold text-white neon-text-sky">SEMCON ELECTRONICS</h3>
-                        <p class="text-slate-300 mt-2">Executed automated PCB assembly and verification processes for energy meter manufacturing.</p>
-                    </div>
-                    <div class="text-sky-400 font-mono text-sm whitespace-nowrap bg-sky-500/10 px-3 py-1 rounded border border-sky-500/30">Sep '22 - Oct '22</div>
-                </div>
-
-                <div class="glass-panel p-6 rounded-xl reveal flex flex-col md:flex-row gap-4 justify-between md:items-center hover:shadow-[0_0_10px_rgba(56,189,248,0.1)] transition duration-300">
-                    <div>
-                        <h3 class="text-xl font-bold text-white neon-text-sky">VARCONS TECHNOLOGIES</h3>
-                        <p class="text-slate-300 mt-2">Engineered an embedded Smart Parking System integrating microcontrollers and sensors for real-time detection.</p>
-                    </div>
-                    <div class="text-sky-400 font-mono text-sm whitespace-nowrap bg-sky-500/10 px-3 py-1 rounded border border-sky-500/30">Aug '22 - Sep '22</div>
-                </div>
-
-                <div class="glass-panel p-6 rounded-xl reveal flex flex-col md:flex-row gap-4 justify-between md:items-center hover:shadow-[0_0_10px_rgba(56,189,248,0.1)] transition duration-300">
-                    <div>
-                        <h3 class="text-xl font-bold text-white neon-text-sky">BIONIC ENGINEERS</h3>
-                        <p class="text-slate-300 mt-2">Designed an IoT-enabled Smart Patient Ward system integrating sensors for real-time health monitoring.</p>
-                    </div>
-                    <div class="text-sky-400 font-mono text-sm whitespace-nowrap bg-sky-500/10 px-3 py-1 rounded border border-sky-500/30">Aug '21 - Sep '21</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="py-20 px-6 border-t border-white/5 relative z-10">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
-            
+    <section id="education" class="py-20 px-6 relative z-10 border-t border-white/5">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
             <div class="reveal">
-                <h3 class="text-3xl font-bold mb-10"><span class="text-gradient">Academic Profile</span></h3>
-                <div class="relative border-l-2 border-slate-700 ml-4 pl-8 space-y-12">
-                    
-                    <div class="relative group">
-                        <div class="absolute -left-[43px] bg-sky-500 w-5 h-5 rounded-full border-4 border-slate-900 group-hover:scale-125 transition duration-300 shadow-[0_0_8px_rgba(56,189,248,0.4)]"></div>
-                        <h4 class="text-xl font-bold mb-1 text-white neon-text-sky">M.Tech - VLSI DESIGN Engineering</h4>
-                        <p class="text-sky-400 font-medium mb-2">SRM IST KTR <span class="text-slate-500">|</span> 2024 - 2026</p>
-                        <p class="inline-block px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300 font-medium shadow-[0_0_4px_rgba(0,0,0,0.3)]">CGPA: 8.86</p>
+                <h3 class="text-2xl font-bold mb-10 text-sky-400 uppercase tracking-tighter">Academic Profile</h3>
+                <div class="space-y-8 border-l border-white/10 pl-6 ml-2">
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 w-4 h-4 bg-sky-500 rounded-full border-4 border-[#05080f]"></div>
+                        <h4 class="font-bold text-white">M.Tech - VLSI Design</h4>
+                        <p class="text-xs text-slate-500">SRM IST KTR | 2024-26</p>
+                        <p class="text-sky-400 font-bold text-sm mt-1">CGPA: 8.86</p>
                     </div>
-
-                    <div class="relative group">
-                        <div class="absolute -left-[43px] bg-slate-600 w-5 h-5 rounded-full border-4 border-slate-900 group-hover:bg-indigo-400 group-hover:scale-125 transition duration-300 shadow-[0_0_8px_rgba(129,140,248,0.4)]"></div>
-                        <h4 class="text-xl font-bold mb-1 text-white neon-text-indigo">B.Tech - Electronics & Communication</h4>
-                        <p class="text-indigo-400 font-medium mb-2">SKIT, Bangalore <span class="text-slate-500">|</span> 2019 - 2023</p>
-                        <p class="inline-block px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300 font-medium shadow-[0_0_4px_rgba(0,0,0,0.3)]">CGPA: 8.25</p>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 w-4 h-4 bg-slate-700 rounded-full border-4 border-[#05080f]"></div>
+                        <h4 class="font-bold text-white">B.Tech - ECE</h4>
+                        <p class="text-xs text-slate-500">SKIT Bangalore | 2019-23</p>
+                        <p class="text-slate-400 font-bold text-sm mt-1">CGPA: 8.25</p>
                     </div>
-
-                    <div class="relative group">
-                        <div class="absolute -left-[43px] bg-slate-600 w-5 h-5 rounded-full border-4 border-slate-900 group-hover:bg-emerald-400 group-hover:scale-125 transition duration-300 shadow-[0_0_8px_rgba(52,211,153,0.4)]"></div>
-                        <h4 class="text-xl font-bold mb-1 text-white neon-text-emerald">Class XII (Higher Secondary)</h4>
-                        <p class="text-emerald-400 font-medium mb-2">Hem Sheela Model School, Durgapur <span class ="text-slate-500">|</span> 2019</p>
-                        <p class="inline-block px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300 font-medium shadow-[0_0_4px_rgba(0,0,0,0.3)]">Score: 85%</p>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 w-4 h-4 bg-slate-700 rounded-full border-4 border-[#05080f]"></div>
+                        <h4 class="font-bold text-white">Class XII</h4>
+                        <p class="text-xs text-slate-500">Hem Sheela Model School | 2019</p>
+                        <p class="text-slate-400 font-bold text-sm mt-1">Score: 85%</p>
                     </div>
-
-                    <div class="relative group">
-                        <div class="absolute -left-[43px] bg-slate-600 w-5 h-5 rounded-full border-4 border-slate-900 group-hover:bg-sky-400 group-hover:scale-125 transition duration-300 shadow-[0_0_8px_rgba(56,189,248,0.4)]"></div>
-                        <h4 class="text-xl font-bold mb-1 text-white neon-text-sky">Class X (Secondary)</h4>
-                        <p class="text-sky-400 font-medium mb-2">Hem Sheela Model School, Durgapur <span class ="text-slate-500">|</span> 2017</p>
-                        <p class="inline-block px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300 font-medium shadow-[0_0_4px_rgba(0,0,0,0.3)]">CGPA: 10</p>
-                    </div>
-
                 </div>
             </div>
-
             <div class="reveal delay-100">
-                <h3 class="text-3xl font-bold mb-10"><span class="text-gradient">Accolades</span></h3>
-                
-                <div class="glass-panel p-6 rounded-xl mb-6">
-                    <h4 class="font-bold text-lg mb-4 border-b border-white/10 pb-2 text-white"><i class="fas fa-book-open text-sky-400 mr-2 neon-text-sky"></i> Publications</h4>
-                    <div class="space-y-2 text-slate-300 text-sm">
-                        <a href="#" target="_blank" class="accolade-link group">
-                            <i class="fas fa-external-link-alt text-sky-500 mt-1 flex-shrink-0 group-hover:text-sky-400"></i>
-                            <div><strong class="text-sky-300 group-hover:text-sky-400 transition">SST IOP '26:</strong> Quantum Mechanical Modeling of Photo-Driven Carrier Transport in Tunnel Diode.</div>
-                        </a>
-                        <a href="#" target="_blank" class="accolade-link group">
-                            <i class="fas fa-external-link-alt text-sky-500 mt-1 flex-shrink-0 group-hover:text-sky-400"></i>
-                            <div><strong class="text-sky-300 group-hover:text-sky-400 transition">ICONN '25:</strong> Substitutive Selection Of Channel Material For Optimised Electrical Performance Of GAA Transistor.</div>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="glass-panel p-6 rounded-xl">
-                    <h4 class="font-bold text-lg mb-4 border-b border-white/10 pb-2 text-white"><i class="fas fa-certificate text-indigo-400 mr-2 neon-text-indigo"></i> Certifications</h4>
-                    <div class="space-y-2 text-slate-300 text-sm">
-                        <a href="#" target="_blank" class="accolade-link group">
-                            <i class="fas fa-external-link-alt text-indigo-400 mt-1 flex-shrink-0 group-hover:text-indigo-300"></i>
-                            <div><strong>Cadence Certified</strong> - Design for Test Fundamentals v5.0 & v4.0</div>
-                        </a>
-                        <a href="#" target="_blank" class="accolade-link group">
-                            <i class="fas fa-external-link-alt text-indigo-400 mt-1 flex-shrink-0 group-hover:text-indigo-300"></i>
-                            <div><strong>Maven Silicon</strong> - VLSI SoC Design using Verilog HDL</div>
-                        </a>
-                        <a href="#" target="_blank" class="accolade-link group">
-                            <i class="fas fa-external-link-alt text-indigo-400 mt-1 flex-shrink-0 group-hover:text-indigo-300"></i>
-                            <div><strong>Stanford Online</strong> - NP-Complete Problems</div>
-                        </a>
-                    </div>
+                <h3 class="text-2xl font-bold mb-10 text-sky-400 uppercase tracking-tighter">Accolades</h3>
+                <div class="glass-panel p-6 rounded-2xl mb-4">
+                    <h4 class="text-sm font-bold text-sky-400 mb-4"><i class="fas fa-book mr-2"></i> PUBLICATIONS</h4>
+                    <p class="text-xs text-slate-400 mb-2"><strong>SST IOP '26:</strong> Quantum Modeling in Tunnel Diodes.</p>
+                    <p class="text-xs text-slate-400"><strong>ICONN '25:</strong> Channel Material Selection for GAAFETs.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="pt-20 pb-10 px-6 glass-nav-footer relative z-10">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <h2 class="text-3xl font-bold mb-8 neon-text-sky">Ready to build the future of silicon?</h2>
-            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
-                <a href="mailto:sarbojeetdgp@gmail.com" class="px-8 py-4 glass-panel rounded-xl hover:bg-sky-500 hover:text-white hover:shadow-[0_0_15px_rgba(56,189,248,0.6)] transition duration-300 flex items-center justify-center gap-3 font-semibold">
-                    <i class="fas fa-paper-plane"></i> Email Me
-                </a>
-                <a href="https://linkedin.com/in/sarbojeetb22" target="_blank" class="px-8 py-4 glass-panel rounded-xl hover:bg-[#0A66C2] hover:text-white hover:shadow-[0_0_15px_rgba(10,102,194,0.6)] transition duration-300 flex items-center justify-center gap-3 font-semibold">
-                    <i class="fab fa-linkedin text-xl"></i> Connect
-                </a>
-            </div>
-            <div class="text-slate-500 text-sm font-medium">
-                <p>© 2026 Sarbojeet Bose. Designed for VLSI Excellence.</p>
-            </div>
-        </div>
+    <footer class="py-12 px-6 nav-footer-glass text-center border-t border-white/5 relative z-10">
+        <p class="text-[10px] text-slate-500 uppercase tracking-[0.4em] mb-4">VLSI Design Engineering Portfolio</p>
+        <p class="text-xs text-slate-300">© 2026 Sarbojeet Bose. Designed for Precision.</p>
     </footer>
 
     <script>
-        // --- FORCE SCROLL TO TOP ON LOAD ---
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        // --- SCROLL TO TOP FIX ---
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
         window.scrollTo(0, 0);
 
+        // --- MOBILE MENU TOGGLE ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            
+            // Toggle hamburger to X icon
+            if(mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
         // --- TYPING EFFECT ---
-        const textArray = [
-            "M.Tech - VLSI DESIGN", 
-            "RTL & Physical Design Enthusiast", 
-            "TCAD & ASIC Flow Specialist"
-        ];
+        const textArray = ["RTL & PHYSICAL DESIGN ENTHUSIAST", "TCAD & ASIC FLOW SPECIALIST", "M.TECH - VLSI DESIGN"];
         let textIndex = 0, charIndex = 0, isDeleting = false;
         const typedTextSpan = document.getElementById("typed-text");
 
         function typeEffect() {
             const currentText = textArray[textIndex];
-            if (isDeleting) {
-                typedTextSpan.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typedTextSpan.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
+            typedTextSpan.textContent = isDeleting ? currentText.substring(0, charIndex--) : currentText.substring(0, charIndex++);
             let typeSpeed = isDeleting ? 40 : 80;
-
-            if (!isDeleting && charIndex === currentText.length) {
-                typeSpeed = 2500; 
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % textArray.length;
-                typeSpeed = 400; 
-            }
+            if (!isDeleting && charIndex === currentText.length) { typeSpeed = 2000; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; textIndex = (textIndex + 1) % textArray.length; typeSpeed = 500; }
             setTimeout(typeEffect, typeSpeed);
         }
 
-        // --- PROJECT FILTERING ---
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
+        // --- DYNAMIC CIRCUIT CANVAS ---
+        const canvas = document.getElementById('circuit-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, points = [];
 
-        filterBtns.forEach(btn => {
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Point {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+        }
+
+        for (let i = 0; i < 60; i++) points.push(new Point());
+
+        function drawCircuit() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < points.length; i++) {
+                points[i].update();
+                for (let j = i + 1; j < points.length; j++) {
+                    let d = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
+                    if (d < 150) {
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${1 - d / 150})`;
+                        ctx.beginPath();
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(points[j].x, points[j].y);
+                        ctx.stroke();
+                    }
+                }
+                ctx.fillStyle = '#38bdf8';
+                ctx.fillRect(points[i].x - 1, points[i].y - 1, 2, 2);
+            }
+            requestAnimationFrame(drawCircuit);
+        }
+        drawCircuit();
+
+        // --- REVEAL ON SCROLL ---
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+
+        // --- FILTER ---
+        document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
+                document.querySelector('.filter-btn.active').classList.remove('active');
                 btn.classList.add('active');
-                const filterValue = btn.getAttribute('data-filter');
-
-                projectCards.forEach(card => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.9)';
-                    
-                    setTimeout(() => {
-                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                            card.style.display = 'flex'; 
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'scale(1)';
-                            }, 50);
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    }, 300); 
+                const cat = btn.dataset.filter;
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.style.display = (cat === 'all' || card.dataset.category === cat) ? 'block' : 'none';
                 });
             });
         });
 
-        // --- READ MORE TOGGLE ---
+        // --- READ MORE ---
         document.querySelectorAll('.read-more-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const textContainer = this.previousElementSibling;
-                const icon = this.querySelector('i');
-                
-                textContainer.classList.toggle('expanded');
-                
-                if (textContainer.classList.contains('expanded')) {
-                    this.innerHTML = 'Read Less <i class="fas fa-chevron-up text-xs ml-1 transition-transform"></i>';
-                } else {
-                    this.innerHTML = 'Read More <i class="fas fa-chevron-down text-xs ml-1 transition-transform"></i>';
-                }
+                const wrapper = this.previousElementSibling;
+                wrapper.classList.toggle('expanded');
+                this.textContent = wrapper.classList.contains('expanded') ? 'Read Less' : 'Read More';
             });
         });
 
-        // --- SCROLL REVEAL ANIMATION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(typeEffect, 1000);
-
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-
-            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target); 
-                    }
-                });
-            }, revealOptions);
-
-            reveals.forEach(reveal => { revealOnScroll.observe(reveal); });
-
-            setTimeout(() => {
-                reveals.forEach(reveal => {
-                    const rect = reveal.getBoundingClientRect();
-                    if(rect.top < window.innerHeight) { reveal.classList.add('active'); }
-                });
-            }, 100);
-        });
+        setTimeout(typeEffect, 1000);
+        revealOnScroll();
     </script>
 </body>
 </html>
